@@ -4,8 +4,8 @@ import requests
 import time
 import cv2
 
-#before using this code you have ot install 3 things requests, bs4, pyautgui
-#pip install requests, pip install pyautogui, pip install beautifulsoup 4
+#before using this code you have ot install 4 things requests, bs4, pyautgui, opencv
+#pip install requests, pip install pyautogui, pip install beautifulsoup 4, pip install opencv-python
 
 #using .get_text to not get only the text and not get random symbols
 
