@@ -1,4 +1,20 @@
-# Sniper
-A program designed to buy an item for a selected price
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
-Enjoy this is one of my first python projects
+## General info
+This project is simple and effective item sniper for the roblox platform
+	
+## Technologies
+Project is created with:
+* requests
+* BeautifulSoup4
+	
+## Setup
+To run this project, install:
+
+```
+pip install requests
+pip install BeautifulSoup4
+```
