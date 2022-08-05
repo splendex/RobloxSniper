@@ -1,38 +1,28 @@
-from bs4 import BeautifulSoup
-import pyautogui
-import requests
-import time
-import cv2
+from webber import webber
+import json
 
-#before using this code you have ot install 4 things requests, bs4, pyautgui, opencv
-#pip install requests, pip install pyautogui, pip install beautifulsoup 4, pip install opencv-python
+url = 'https://web.roblox.com/catalog/'
 
-#using .get_text to not get only the text and not get random symbols
+file = open('items.json', 'r')
+jfile = json.load(file)
 
+sniper = webber('Your cookie here')
 
-#url of the item you want to snipe
-url = 'https://web.roblox.com/catalog/63239668/Bat-Tie'
-snipe_amount = int(input('enter the amount you want to buy the item for : '))
-time.sleep(5)
+def checkProps():
+    for buy_price, item_id in jfile.items():
+        soup = sniper.getSoup(f'{url}{item_id}')
+        price = sniper.getPrice(soup)
+        
+        f_price = price.replace(',', '')
 
-#variables
-page = requests.get(url)
-soup = BeautifulSoup(page.content, 'html.parser')
+        if int(f_price) < int(buy_price):
+            sniper.buyItem(item_id)
+        else:
+            print(f'{item_id} : {f_price} => {buy_price}')      
 
-name = soup.find('h2').get_text()
-price = soup.find('span', {'class' : 'text-robux-lg wait-for-i18n-format-render'}).get_text()
+def main():
+    while True:
+        checkProps()
 
-#functions
-def price_loop():
-    time.sleep(1)
-    print(name, 'is currenly selling for: $', price)
-
-#exec
-while True:
-    price_loop()
-    if int(price.replace(',', '')) <= snipe_amount:
-        button_pos = pyautogui.locateOnScreen('buyButton.PNG', confidence=0.7)
-        pyautogui.moveTo(button_pos)
-        pyautogui.click()
-
-        print('purchased the item')
+if __name__ == '__main__':
+    main()
